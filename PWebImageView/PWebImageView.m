@@ -127,14 +127,18 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
         if(!self._operation)
         {
             [self jobsAfterDone];
-        }
-        if(image)
-        {
-            [self setImage:image];
-            if(self._delegate) [self._delegate afterImageLoaded:self image:image];
+             [self setImage:self._emptyImage];//
         }
         else
-            [self setImage:self._emptyImage];//
+        {
+            if(image)
+            {
+                [self setImage:image];
+                if(self._delegate) [self._delegate afterImageLoaded:self image:image];
+            }
+            else
+                [self setImage:self._emptyImage];//
+        }
     }];
 }
 -(void)jobsBeforeStart
