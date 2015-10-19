@@ -127,7 +127,10 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
         {
             [self jobsAfterDone];
         }
-        [self setImage:image];
+        if(image)
+            [self setImage:image];
+        else
+            [self setImage:self._emptyImage];//
     }];
 }
 -(void)jobsBeforeStart
