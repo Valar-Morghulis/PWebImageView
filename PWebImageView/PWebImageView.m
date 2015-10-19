@@ -125,21 +125,14 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
     }
     [self jobsBeforeStart];
     self._operation =  [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageUrl] options:options progress:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL){
-        if(!self._operation)
+        [self jobsAfterDone];
+        if(image)
         {
-            [self jobsAfterDone];
-             [self setImage:self._emptyImage];//
+            if([self _isLoadingImage] && self._delegate) [self._delegate afterImageLoaded:self image:image];//先
+            [self setImage:image];//后
         }
         else
-        {
-            if(image)
-            {
-                [self setImage:image];
-                if(self._delegate) [self._delegate afterImageLoaded:self image:image];
-            }
-            else
-                [self setImage:self._emptyImage];//
-        }
+            [self setImage:self._emptyImage];//
     }];
 }
 -(void)jobsBeforeStart
