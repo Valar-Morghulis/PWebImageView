@@ -86,6 +86,7 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
     {
         [self._operation cancel];
         self._operation = 0;
+        [self setImage:self._emptyImage];
         [self jobsAfterDone];
     }
 }
