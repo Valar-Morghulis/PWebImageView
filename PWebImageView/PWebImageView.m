@@ -19,6 +19,7 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
 @synthesize _emptyImage;
 @synthesize _imageView;
 @synthesize _isLoadingImage;
+@synthesize _delegate;
 
 @synthesize _emptyOrDefaultContentMode;
 @synthesize _defaultColor;
@@ -128,7 +129,10 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
             [self jobsAfterDone];
         }
         if(image)
+        {
             [self setImage:image];
+            if(self._delegate) [self._delegate afterImageLoaded:self image:image];
+        }
         else
             [self setImage:self._emptyImage];//
     }];

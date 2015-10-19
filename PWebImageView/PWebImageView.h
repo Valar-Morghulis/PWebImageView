@@ -12,6 +12,11 @@
 extern NSString * PW_DEFAULT_EMPTY_IMAGE;//默认图片
 extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
 
+@class PWebImageView;
+@protocol PWebImageViewDelegate
+-(void)afterImageLoaded:(PWebImageView *)imageView image:(UIImage *)image;
+
+@end
 
 @interface PWebImageView : UIView
 {
@@ -23,7 +28,11 @@ extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
     UIImageView *_imageView;
     UIViewContentMode _emptyOrDefaultContentMode;
     UIColor * _defaultColor;
+    id<PWebImageViewDelegate> _delegate;
 }
+@property(nonatomic,assign)  id<PWebImageViewDelegate> _delegate;
+
+//
 @property(nonatomic, retain) id <SDWebImageOperation> _operation;
 
 @property(nonatomic,readonly) BOOL _isLoadingImage;
