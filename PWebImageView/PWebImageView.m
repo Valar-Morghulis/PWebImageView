@@ -55,6 +55,9 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
         //
         self.backgroundColor = [UIColor clearColor];
         self._imageView.backgroundColor = [UIColor clearColor];
+#if USED_DELEGATE_RETAIN_SET
+        _isDelegateRetained = FALSE;
+#endif
     }
     return self;
 }
@@ -70,6 +73,27 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
     self._imageView = 0;
     [super dealloc];
 }
+#if USED_DELEGATE_RETAIN_SET
+-(void)set_delegate:(id<PWebImageViewDelegate>)delegate
+{
+    if(_delegate && _isDelegateRetained)
+    {
+        [(id)_delegate release];
+    }
+    _delegate = delegate;
+    if(_delegate)
+    {
+        if([self _isLoadingImage])
+        {
+            [(id)_delegate retain];
+            _isDelegateRetained = TRUE;
+        }
+    }
+    else
+        _isDelegateRetained = FALSE;
+}
+#endif
+
 -(void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
@@ -89,6 +113,13 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
         [self setImage:self._emptyImage];
         [self jobsAfterDone];
     }
+#if USED_DELEGATE_RETAIN_SET
+    if(self._delegate && _isDelegateRetained)
+    {
+        [(id)self._delegate release];
+        _isDelegateRetained = FALSE;
+    }
+#endif
 }
 -(void)setImage:(UIImage *)img
 {
@@ -123,12 +154,19 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
     {
         return;
     }
-    [self jobsBeforeStart];
+    [self jobsBeforeStart];//先
+#if USED_DELEGATE_RETAIN_SET
+    if(self._delegate && !_isDelegateRetained)//后
+    {
+        [(id)self._delegate retain];
+        _isDelegateRetained = TRUE;
+    }
+#endif
     self._operation =  [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:imageUrl] options:options progress:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL){
         [self jobsAfterDone];
         if(image)
         {
-            if([self _isLoadingImage] && self._delegate) [self._delegate afterImageLoaded:self image:image];//先
+            if(self._delegate) [self._delegate afterImageLoaded:self image:image];//先
             [self setImage:image];//后
         }
         else

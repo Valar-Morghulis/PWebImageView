@@ -11,7 +11,14 @@
 #import "WebImage.h"
 extern NSString * PW_DEFAULT_EMPTY_IMAGE;//默认图片
 extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
-
+/**
+ pod - targets - PWebImageView.a - Build Settings - Preprocessor Macros - 添加USED_DELEGATE_RETAIN_SET=1或者0来设置
+ **
+ 如果USED_DELEGATE_RETAIN_SET 为0，需要手动设置 _delegate = 0;否则会有内存问题。
+ **/
+#ifndef USED_DELEGATE_RETAIN_SET
+#define USED_DELEGATE_RETAIN_SET 1
+#endif
 @class PWebImageView;
 @protocol PWebImageViewDelegate
 -(void)afterImageLoaded:(PWebImageView *)imageView image:(UIImage *)image;
@@ -29,6 +36,9 @@ extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
     UIViewContentMode _emptyOrDefaultContentMode;
     UIColor * _defaultColor;
     id<PWebImageViewDelegate> _delegate;
+#if USED_DELEGATE_RETAIN_SET
+    BOOL _isDelegateRetained;
+#endif
 }
 @property(nonatomic,assign)  id<PWebImageViewDelegate> _delegate;
 
@@ -48,5 +58,6 @@ extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
 -(void)loadImage:(NSString *)imageUrl options:(SDWebImageOptions)options;
 -(void)setImage:(UIImage *)img;
 -(void)cancelLoad;
+
 
 @end
