@@ -168,11 +168,28 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
         [self jobsAfterDone];
         if(image)
         {
-            if(self._delegate) [self._delegate afterImageLoaded:self image:image];//先
-            [self setImage:image];//后
+#if USED_DELEGATE_RETAIN_SET
+            id<PWebImageViewDelegate> oldDelegate = self._delegate;
+            if(oldDelegate)//@1
+            {
+                [(id)oldDelegate retain];
+            }
+            //设置图片
+            [self setImage:image];//@2
+            if(oldDelegate)//@3
+            {
+                [oldDelegate afterImageLoaded:self image:image];
+                [(id)oldDelegate release];
+            }
+#else
+            [self setImage:image];
+            [self._delegate afterImageLoaded:self image:image];
+#endif
         }
         else
+        {
             [self setImage:self._emptyImage];//
+        }
     }];
 }
 -(void)jobsBeforeStart
