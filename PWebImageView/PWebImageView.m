@@ -88,6 +88,8 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
             [(id)_delegate retain];
             _isDelegateRetained = TRUE;
         }
+        else
+             _isDelegateRetained = FALSE;
     }
     else
         _isDelegateRetained = FALSE;
