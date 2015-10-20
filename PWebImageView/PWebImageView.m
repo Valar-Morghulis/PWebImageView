@@ -10,7 +10,7 @@
 
 NSString * PW_DEFAULT_EMPTY_IMAGE = @"defaultEmptyImage.png";
 
-UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
+UIColor * PW_DEFAULT_BACKGROUNDCOLOR; 
 
 @implementation PWebImageView
 @synthesize _activityView;
