@@ -8,7 +8,7 @@
 
 #import "PWebImageView.h"
 
-NSString * PW_DEFAULT_EMPTY_IMAGE = @"defaultEmptyImage.png";
+NSString * PW_DEFAULT_EMPTY_IMAGE = @"defaultEmptyImage.png"; 
 
 UIColor * PW_DEFAULT_BACKGROUNDCOLOR; 
 
@@ -96,16 +96,16 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
 }
 #endif
 
--(void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    CGRect activityViewFrame = self._activityView.frame;
-    activityViewFrame.origin.x = (frame.size.width - activityViewFrame.size.width) / 2;
-    activityViewFrame.origin.y = (frame.size.height - activityViewFrame.size.height) / 2;
-    self._activityView.frame = activityViewFrame;
-    //
-    self._imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-}
+//-(void)setFrame:(CGRect)frame
+//{
+//    [super setFrame:frame];
+//    CGRect activityViewFrame = self._activityView.frame;
+//    activityViewFrame.origin.x = (frame.size.width - activityViewFrame.size.width) / 2;
+//    activityViewFrame.origin.y = (frame.size.height - activityViewFrame.size.height) / 2;
+//    self._activityView.frame = activityViewFrame;
+//    //
+//    self._imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+//}
 -(void)cancelLoad
 {
     if(self._operation)

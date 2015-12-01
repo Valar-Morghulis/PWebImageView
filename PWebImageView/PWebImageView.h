@@ -6,7 +6,7 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <UIKit/UIKit.h> 
 
 #import "WebImage.h"
 extern NSString * PW_DEFAULT_EMPTY_IMAGE;//默认图片
