@@ -8,5 +8,5 @@
 
 #import "SDWebImageManager.h"
 @interface SDWebImageManager(Custom)
--(UIImage *)imageForURL:(NSURL *)url;
+-(UIImage *)cachedImageWidthURL:(NSURL *)url;
 @end

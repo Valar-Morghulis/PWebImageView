@@ -9,7 +9,7 @@
 #import "SDWebImageManager+Custom.h"
 
 @implementation SDWebImageManager(Custom)
--(UIImage *)imageForURL:(NSURL *)url
+-(UIImage *)cachedImageWidthURL:(NSURL *)url
 {
     UIImage * res = 0;
     NSString *key = [self cacheKeyForURL:url];
