@@ -21,7 +21,7 @@ extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
 #endif
 @class PWebImageView;
 @protocol PWebImageViewDelegate
--(void)afterImageLoaded:(PWebImageView *)imageView image:(UIImage *)image;
+-(void)afterImageLoaded:(PWebImageView *)imageView image:(UIImage *)image URL:(NSURL *)URL;
 
 @end
 

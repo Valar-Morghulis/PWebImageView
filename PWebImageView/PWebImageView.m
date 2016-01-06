@@ -154,6 +154,7 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
     NSLog(@"image URL=%@",imageUrl);
     if(!imageUrl)
     {
+        if(self._delegate) [self._delegate afterImageLoaded:self image:0 URL:0];
         return;
     }
     [self jobsBeforeStart];//先
@@ -178,17 +179,18 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
             [self setImage:image];//@2
             if(oldDelegate)//@3
             {
-                [oldDelegate afterImageLoaded:self image:image];
+                [oldDelegate afterImageLoaded:self image:image URL:imageURL];
                 [(id)oldDelegate release];
             }
 #else
             [self setImage:image];
-            [self._delegate afterImageLoaded:self image:image];
+            [self._delegate afterImageLoaded:self image:image URL:imageURL];
 #endif
-        }
+        }//fi
         else
         {
             [self setImage:self._emptyImage];//
+            if(self._delegate) [self._delegate afterImageLoaded:self image:0 URL:0];
         }
     }];
 }
