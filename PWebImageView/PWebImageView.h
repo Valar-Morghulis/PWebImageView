@@ -59,5 +59,5 @@ extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
 -(void)setImage:(UIImage *)img;
 -(void)cancelLoad;
 
-
++(UIImage *)cachedImageWidthURL:(NSString *)url;//如果在cache中存在，将返回image,否则返回0
 @end

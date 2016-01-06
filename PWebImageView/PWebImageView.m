@@ -202,4 +202,8 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
     [self._activityView stopAnimating];
 }
 
++(UIImage *)cachedImageWidthURL:(NSString *)url//如果在cache中存在，将返回image,否则返回0
+{
+    return [[SDWebImageManager sharedManager] cachedImageWidthURL:url];
+}
 @end

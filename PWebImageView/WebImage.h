@@ -21,3 +21,6 @@
 #import "SDWebImageDecoder.h"
 #import "UIImage+GIF.h"
 #import "NSData+ImageContentType.h"
+
+#import "SDWebImageManager+Custom.h"
+
