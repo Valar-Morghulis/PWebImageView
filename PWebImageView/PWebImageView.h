@@ -56,7 +56,6 @@ extern UIColor * PW_DEFAULT_BACKGROUNDCOLOR;//默认背景
 
 -(void)loadImage:(NSString *)imageUrl;
 -(void)loadImage:(NSString *)imageUrl options:(SDWebImageOptions)options;
--(void)loadImage:(NSString *)imageUrl options:(SDWebImageOptions)options setDefaultImage:(BOOL)setDefaultImage;
 -(void)setImage:(UIImage *)img;
 -(void)cancelLoad;
 

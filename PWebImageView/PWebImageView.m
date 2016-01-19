@@ -148,17 +148,9 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
 {
     [self loadImage:imageUrl options:SDWebImageLowPriority];
 }
-
 -(void)loadImage:(NSString *)imageUrl options:(SDWebImageOptions)options
 {
-    [self loadImage:imageUrl options:options setDefaultImage:TRUE];
-}
--(void)loadImage:(NSString *)imageUrl options:(SDWebImageOptions)options setDefaultImage:(BOOL)setDefaultImage
-{
-    [self cancelLoad];
-    if(setDefaultImage)
-        [self setImage:self._defaultImage];
-    
+    [self setImage:self._defaultImage];
     NSLog(@"image URL=%@",imageUrl);
     if(!imageUrl)
     {
@@ -205,6 +197,7 @@ UIColor * PW_DEFAULT_BACKGROUNDCOLOR;
 }
 -(void)jobsBeforeStart
 {
+    [self setImage:self._defaultImage];
     [_activityView startAnimating];
 }
 -(void)jobsAfterDone
